@@ -1,1 +1,130 @@
-{"swagger":"2.0","info":{"description":"API para obtener cambios de divisa y transaciones.","version":"1.0.0","title":"Tip Rates API","contact":{"email":"victorgimeno.java@gmail.com"},"license":{"name":"Apache 2.0","url":"http://www.apache.org/licenses/LICENSE-2.0.html"}},"tags":[{"name":"desarrollo","description":"Operaciones disponibles para desarrolladores"}],"paths":{"/rates":{"get":{"tags":["desarrollo"],"summary":"obtiene los rates de conversion","operationId":"getRates","description":"Obtiene el fichero de rates de conversión\n","produces":["application/json"],"responses":{"200":{"description":"resultado rates","schema":{"type":"array","items":{"$ref":"#/definitions/Rate"}}},"400":{"description":"bad input parameter"}}}},"/transactions":{"get":{"tags":["desarrollo"],"summary":"obtiene el listado de transacciones","operationId":"getTransactions","description":"Obtiene el fichero de transacciones\n","produces":["application/json"],"responses":{"200":{"description":"resultado transacciones","schema":{"type":"array","items":{"$ref":"#/definitions/Transaction"}}},"400":{"description":"bad input parameter"}}}}},"definitions":{"Rate":{"type":"object","required":["from","to","rate"],"properties":{"from":{"type":"string","example":"EUR"},"to":{"type":"string","example":"USD"},"rate":{"type":"number","format":"float","example":0.73}}},"Transaction":{"required":["sku","amount","currency"],"properties":{"sku":{"type":"string","example":"U9943"},"amount":{"type":"number","format":"float","example":15.7},"currency":{"type":"string","example":"USD"}}}},"host":"virtserver.swaggerhub.com","basePath":"/vgimeno/TipRates/1.0.0","schemes":["https","http"]}
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API para obtener cambios de divisa y transaciones.",
+        "version": "1.0.0",
+        "title": "Tip Rates API",
+        "contact": {
+            "email": "victorgimeno.java@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "tags": [
+        {
+            "name": "desarrollo",
+            "description": "Operaciones disponibles para desarrolladores"
+        }
+    ],
+    "paths": {
+        "/rates": {
+            "get": {
+                "tags": [
+                    "desarrollo"
+                ],
+                "summary": "obtiene los rates de conversion",
+                "operationId": "getRates",
+                "description": "Obtiene el fichero de rates de conversión\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "resultado rates",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Rate"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "bad input parameter"
+                    }
+                }
+            }
+        },
+        "/transactions": {
+            "get": {
+                "tags": [
+                    "desarrollo"
+                ],
+                "summary": "obtiene el listado de transacciones",
+                "operationId": "getTransactions",
+                "description": "Obtiene el fichero de transacciones\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "resultado transacciones",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Transaction"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "bad input parameter"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Rate": {
+            "type": "object",
+            "required": [
+                "from",
+                "to",
+                "rate"
+            ],
+            "properties": {
+                "from": {
+                    "type": "string",
+                    "example": "EUR"
+                },
+                "to": {
+                    "type": "string",
+                    "example": "USD"
+                },
+                "rate": {
+                    "type": "number",
+                    "format": "float",
+                    "example": 0.73
+                }
+            }
+        },
+        "Transaction": {
+            "required": [
+                "sku",
+                "amount",
+                "currency"
+            ],
+            "properties": {
+                "sku": {
+                    "type": "string",
+                    "example": "U9943"
+                },
+                "amount": {
+                    "type": "number",
+                    "format": "float",
+                    "example": 15.7
+                },
+                "currency": {
+                    "type": "string",
+                    "example": "USD"
+                }
+            }
+        }
+    },
+    "host": "virtserver.swaggerhub.com",
+    "basePath": "/vgimeno/TipRates/1.0.0",
+    "schemes": [
+        "https",
+        "http"
+    ]
+}
