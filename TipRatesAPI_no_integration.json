@@ -1,0 +1,293 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API para obtener cambios de divisa y transaciones.",
+        "version": "1.0.0",
+        "title": "TipRatesAPI",
+        "contact": {
+            "email": "victorgimeno.java@gmail.com"
+        }
+    },
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/": {
+            "get": {
+                "tags": [
+                    "rates"
+                ],
+                "description": "Rates HTML web page containing API usage information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/html"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "headers": {
+                            "Content-Type": {
+                                "type": "string",
+                                "description": "Media type of request"
+                            }
+                        }
+                    }
+                },
+                "x-amazon-apigateway-integration": {
+                    "responses": {
+                        "default": {
+                            "statusCode": "200",
+                            "responseParameters": {
+                                "method.response.header.Content-Type": "'text/html'"
+                            },
+                            "responseTemplates": {
+                                "text/html": "<html>\n    <head>\n        <style>\n        body {\n            color: #333;\n            font-family: Sans-serif;\n            max-width: 800px;\n            margin: auto;\n        }\n        </style>\n    </head>\n    <body>\n        <h1>Welcome to your RATES API</h1>\n        <p>\n            You have succesfully deployed your first API. You are seeing this HTML page because the <code>GET</code> method to the root resource of your API returns this content as a Mock integration.\n        </p>\n        <p>\n            The Pet Store API contains the <code>/pets</code> and <code>/pets/{petId}</code> resources. By making a <a href=\"/$context.stage/pets/\" target=\"_blank\"><code>GET</code> request</a> to <code>/pets</code> you can retrieve a list of Pets in your API. If you are looking for a specific pet, for example the pet with ID 1, you can make a <a href=\"/$context.stage/pets/1\" target=\"_blank\"><code>GET</code> request</a> to <code>/pets/1</code>.\n        </p>\n        <p>\n            You can use a REST client such as <a href=\"https://www.getpostman.com/\" target=\"_blank\">Postman</a> to test the <code>POST</code> methods in your API to create a new pet. Use the sample body below to send the <code>POST</code> request:\n        </p>\n        <pre>\n{\n    \"type\" : \"cat\",\n    \"price\" : 123.11\n}\n        </pre>\n    </body>\n</html>"
+                            }
+                        }
+                    },
+                    "passthroughBehavior": "when_no_match",
+                    "requestTemplates": {
+                        "application/json": "{\"statusCode\": 200}"
+                    },
+                    "type": "mock"
+                }
+            }
+        },
+        "/rates": {
+            "get": {
+                "tags": [
+                    "rates"
+                ],
+                "summary": "obtiene los rates de conversion",
+                
+                "description": "Obtiene el fichero de rates de conversión\n",
+                "produces": [
+                    "application/json"
+                ],
+                
+                "responses": {
+                    "200": {
+                        "description": "resultado OK rates",
+                        "schema": {
+                            "$ref": "#/definitions/Rates"
+                        },
+                        "headers": {
+                            "Access-Control-Allow-Origin": {
+                                "type": "string",
+                                "description": "URI that may access the resource"
+                            }
+                        }
+                    }
+                },
+                "x-amazon-apigateway-integration": {
+                    "responses": {
+                        "default": {
+                            "statusCode": "200",
+                            "responseParameters": {
+                                "method.response.header.Access-Control-Allow-Origin": "'*'"
+                            }
+                        }
+                    },
+                    "httpMethod": "GET",
+                    "type": "http"
+                }
+            }
+        },        
+        "/transactions": {
+            "get": {
+                "tags": [
+                    "transactions"
+                ],
+                "summary": "obtiene el listado de transacciones",
+                
+                "description": "Obtiene el fichero de transacciones\n",
+                "produces": [
+                    "application/json"
+                ],
+                
+                "responses": {
+                    "200": {
+                        "description": "resultado OK transacciones",
+                        "schema": {
+                            "$ref": "#/definitions/Transactions"
+                        },
+                        "headers": {
+                            "Access-Control-Allow-Origin": {
+                                "type": "string",
+                                "description": "URI that may access the resource"
+                            }
+                        }
+                    }
+                },
+                "x-amazon-apigateway-integration": {
+                    "responses": {
+                        "default": {
+                            "statusCode": "200",
+                            "responseParameters": {
+                                "method.response.header.Access-Control-Allow-Origin": "'*'"
+                            }
+                        }
+                    },
+                    "httpMethod": "GET",
+                    "type": "http"
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Rates": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Rate"
+            }
+        },
+        "Rate": {
+            "type": "object",
+            "required": [
+                "from",
+                "to",
+                "rate"
+            ],
+            "properties": {
+                "from": {
+                    "type": "string",
+                    "example": "EUR"
+                },
+                "to": {
+                    "type": "string",
+                    "example": "USD"
+                },
+                "rate": {
+                    "type": "number",
+                    "format": "float",
+                    "example": 0.73
+                }
+            }
+        },
+        "Transactions": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Transaction"
+            }
+        },
+        "Transaction": {
+            "required": [
+                "sku",
+                "amount",
+                "currency"
+            ],
+            "properties": {
+                "sku": {
+                    "type": "string",
+                    "example": "U9943"
+                },
+                "amount": {
+                    "type": "number",
+                    "format": "float",
+                    "example": 15.7
+                },
+                "currency": {
+                    "type": "string",
+                    "example": "USD"
+                }
+            }
+        }
+    },
+    "x-amazon-apigateway-documentation": {
+        "version": "v2.1",
+        "createdDate": "2016-11-17T07:03:59Z",
+        "documentationParts": [
+            {
+                "location": {
+                    "type": "API"
+                },
+                "properties": {
+                    "info": {
+                        "description": "RATES API with Amazon API Gateway"
+                    }
+                }
+            },
+            {
+                "location": {
+                    "type": "METHOD",
+                    "method": "GET"
+                },
+                "properties": {
+                    "tags": [
+                        "rates"
+                    ],
+                    "description": "Rates HTML web page containing API usage information"
+                }
+            },            
+            {
+                "location": {
+                    "type": "METHOD",
+                    "path": "/rates",
+                    "method": "GET"
+                },
+                "properties": {
+                    "tags": [
+                        "rates"
+                    ],
+                    "summary": "List all rates"
+                }
+            },
+            {
+                "location": {
+                    "type": "RESPONSE",
+                    "method": "*",
+                    "statusCode": "200"
+                },
+                "properties": {
+                    "description": "Successful operation"
+                }
+            },
+            {
+                "location": {
+                    "type": "RESPONSE_HEADER",
+                    "method": "OPTIONS",
+                    "statusCode": "200",
+                    "name": "Access-Control-Allow-Headers"
+                },
+                "properties": {
+                    "description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the request."
+                }
+            },
+            {
+                "location": {
+                    "type": "RESPONSE_HEADER",
+                    "method": "OPTIONS",
+                    "statusCode": "200",
+                    "name": "Access-Control-Allow-Methods"
+                },
+                "properties": {
+                    "description": "Method or methods allowed when accessing the resource"
+                }
+            },
+            {
+                "location": {
+                    "type": "RESPONSE_HEADER",
+                    "method": "*",
+                    "statusCode": "200",
+                    "name": "Access-Control-Allow-Origin"
+                },
+                "properties": {
+                    "description": "URI that may access the resource"
+                }
+            },
+            {
+                "location": {
+                    "type": "RESPONSE_HEADER",
+                    "method": "GET",
+                    "statusCode": "200",
+                    "name": "Content-Type"
+                },
+                "properties": {
+                    "description": "Media type of request"
+                }
+            }
+        ]
+    }
+}
